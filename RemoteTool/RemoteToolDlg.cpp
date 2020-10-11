@@ -267,5 +267,6 @@ void CRemoteToolDlg::OnDestroy()
 	if (bExeStart) {
 		BOOL bret = TerminateProcess(pi.hProcess, 0);
 	}
+
 	CDialogEx::OnDestroy();
 }
