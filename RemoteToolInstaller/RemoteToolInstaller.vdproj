@@ -33,12 +33,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_4BC0A0DB7D5A4FB8AC5B4DD0719A72E1"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_7D73C17956604049B1F91D6365F873BA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -151,6 +145,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
         "Release"
         {
@@ -167,6 +177,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.6.1"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.6.1 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.6.1"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -600,7 +626,7 @@
             {
             "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
-            "AlwaysCreate" = "11:FALSE"
+            "AlwaysCreate" = "11:TRUE"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Property" = "8:TARGETDIR"
@@ -680,7 +706,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:RemoteToolInstaller"
         "ProductCode" = "8:{74CE6346-E75F-433A-BE07-A03734D801D0}"
-        "PackageCode" = "8:{0BF83BB8-3361-4BE3-B28C-022F8B6792D5}"
+        "PackageCode" = "8:{13B90F54-8E71-4197-87B4-57CEB0E5CBBC}"
         "UpgradeCode" = "8:{D25B201A-273F-4165-B849-49D637ABE9E0}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -800,7 +826,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4E03B8B60CD74645A4636BFC0BCDBE2B"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8E2596AE53234DB4822D50D781518E05"
             {
             "Name" = "8:RemoteTool"
             "Arguments" = "8:"
@@ -808,21 +834,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_4BC0A0DB7D5A4FB8AC5B4DD0719A72E1"
-            "Folder" = "8:_113268EF5A5049EC94721901D2627573"
-            "WorkingFolder" = "8:_9765BF0EF54547C183C3AB510C3B1FB9"
-            "Icon" = "8:_BE43E719A97148B991980BD955BA9F43"
-            "Feature" = "8:"
-            }
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7DEE789DBF5747F3800BF021F1F7D6AB"
-            {
-            "Name" = "8:RemoteTool"
-            "Arguments" = "8:"
-            "Description" = "8:"
-            "ShowCmd" = "3:1"
-            "IconIndex" = "3:0"
-            "Transitive" = "11:FALSE"
-            "Target" = "8:_4BC0A0DB7D5A4FB8AC5B4DD0719A72E1"
+            "Target" = "8:_DB0CC52BBE66430EBEDD63239FAF8877"
             "Folder" = "8:_28009D0176124951AA65B03A415DDC40"
             "WorkingFolder" = "8:_9765BF0EF54547C183C3AB510C3B1FB9"
             "Icon" = "8:_BE43E719A97148B991980BD955BA9F43"
@@ -1227,7 +1239,7 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_4BC0A0DB7D5A4FB8AC5B4DD0719A72E1"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_DB0CC52BBE66430EBEDD63239FAF8877"
             {
             "SourcePath" = "8:..\\x64\\Release\\RemoteTool.exe"
             "TargetName" = "8:"
