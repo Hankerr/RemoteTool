@@ -110,15 +110,20 @@ BOOL CRemoteToolDlg::OnInitDialog()
 	GetDlgItem(IDC_BTN_OPEN)->EnableWindow(TRUE);
 	GetDlgItem(IDC_BTN_STOP)->EnableWindow(FALSE);
 
-	//设置系统托盘
+	// 设置系统托盘
 	NotifyIcon.cbSize = sizeof(NOTIFYICONDATA);
 	NotifyIcon.hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
-	NotifyIcon.hIcon = m_hIcon;  // 上面那句也可以
+	NotifyIcon.hIcon = m_hIcon;
 	NotifyIcon.hWnd = m_hWnd;
 	lstrcpy(NotifyIcon.szTip, _T("运行中..."));
 	NotifyIcon.uCallbackMessage = WM_SYSTEMTRAY;
 	NotifyIcon.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
-	Shell_NotifyIcon(NIM_ADD, &NotifyIcon);   // 添加系统托盘
+	// 添加系统托盘
+	Shell_NotifyIcon(NIM_ADD, &NotifyIcon);
+
+	// 日志初始化
+	LogInit();
+	BOOST_LOG(lg) << "Log Tracing...";
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -185,6 +190,7 @@ HCURSOR CRemoteToolDlg::OnQueryDragIcon()
 
 void CRemoteToolDlg::OnBnClickedBtnOpen()
 {
+	BOOST_LOG(lg) << "Starting Opening...";
 	si = { 0 };
 	pi = { 0 };
 	si.cb = sizeof(si);
@@ -195,10 +201,12 @@ void CRemoteToolDlg::OnBnClickedBtnOpen()
 	//TCHAR app[] = TEXT(".\\ExePath\\frp_0.31.2_windows_amd64\\frpc.exe");
 	arg = _T(".\\ExePath\\frp_0.31.2_windows_amd64\\frpc.exe -c .\\ExePath\\frp_0.31.2_windows_amd64\\frpc.ini");
 
+	BOOST_LOG(lg) << "CreateProcess:frpc.exe...";
 	bExeStart = CreateProcess(NULL, arg.GetBuffer(), NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi);
 	arg.ReleaseBuffer();
 	if (bExeStart)
 	{
+		BOOST_LOG(lg) << "Process Going:frpc.exe...";
 		m_ExeStatus.Empty();
 		m_ExeStatus = _T("程序运行中...");
 		SetDlgItemText(IDC_EDT_STATUS, m_ExeStatus);
@@ -206,6 +214,7 @@ void CRemoteToolDlg::OnBnClickedBtnOpen()
 		GetDlgItem(IDC_BTN_OPEN)->EnableWindow(FALSE);
 	}
 	else {
+		BOOST_LOG(lg) << "Process Fail:frpc.exe...";
 		AfxMessageBox(_T("程序启动失败,请重新启动!!!"));
 	}
 }
@@ -215,7 +224,7 @@ void CRemoteToolDlg::OnBnClickedBtnStop()
 {
 	//系统通知窗口
 	this->ShowWindow(HIDE_WINDOW);
-
+	BOOST_LOG(lg) << "Process Finsh:frpc.exe...";
 	GetDlgItem(IDC_BTN_OPEN)->EnableWindow(TRUE);
 	GetDlgItem(IDC_BTN_STOP)->EnableWindow(FALSE);
 }
@@ -224,6 +233,7 @@ void CRemoteToolDlg::OnBnClickedBtnStop()
 void CRemoteToolDlg::OnClose()
 {
 	// 关闭程序调用frpc结束
+	BOOST_LOG(lg) << "Process Terminate:frpc.exe...";
 	if (bExeStart) {
 		BOOL bret = TerminateProcess(pi.hProcess, 0);
 	}
@@ -269,4 +279,21 @@ void CRemoteToolDlg::OnDestroy()
 	}
 
 	CDialogEx::OnDestroy();
+}
+
+// boost库日志创建
+void CRemoteToolDlg::LogInit()
+{
+	// Construct the sink
+	typedef sinks::synchronous_sink<sinks::text_ostream_backend> text_sink;
+	boost::shared_ptr<text_sink> sink = boost::make_shared<text_sink>();
+	// 时间的格式是YYYYMMDDHHMMSS
+	std::string strTime = boost::posix_time::to_iso_string(boost::posix_time::second_clock::local_time());
+	size_t pos = strTime.find('T');
+	strTime.replace(pos, 1, std::string(""));
+	// Add a stream to write log to
+	std::string logName = strTime + ".log";
+	sink->locked_backend()->add_stream(boost::make_shared<std::ofstream>("./log/" + logName));
+	// Register the sink in the logging core
+	logging::core::get()->add_sink(sink);
 }
